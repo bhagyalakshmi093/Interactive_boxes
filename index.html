@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Boxes</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: white;
+        }
+        .box {
+            width: 150px;
+            height: 100px;
+            margin: 10px;
+            background-color: lightgray;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .box.expanded {
+            width: 300px;
+            height: 200px;
+        }
+        .boxes {
+            display: none;
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 100px;
+        }
+        .box.expanded .boxes {
+            display: flex;
+        }
+        .change {
+            margin: 5px;
+            padding: 5px;
+            background-color: white;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="box" onclick="toggleBox(this)">Box 1
+        <div class="boxes">
+            <div class="change" onclick="changeColor(event, this, 'red')">Red</div>
+            <div class="change" onclick="changeColor(event, this, 'blue')">Blue</div>
+        </div>
+    </div>
+    <div class="box" onclick="toggleBox(this)">Box 2
+        <div class="boxes">
+            <div class="change" onclick="changeColor(event, this, 'green')">Green</div>
+            <div class="change" onclick="changeColor(event, this, 'yellow')">Yellow</div>
+        </div>
+    </div>
+    <div class="box" onclick="toggleBox(this)">Box 3
+        <div class="boxes">
+            <div class="change" onclick="changeColor(event, this, 'purple')">Purple</div>
+            <div class="change" onclick="changeColor(event, this, 'orange')">Orange</div>
+        </div>
+    </div>
+
+    <script>
+        function toggleBox(box) {
+            document.querySelectorAll('.box').forEach(b => {
+                if (b !== box) b.classList.remove('expanded');
+            });
+            box.classList.toggle('expanded');
+        }
+
+        function changeColor(event, change, color) {
+            event.stopPropagation();
+            change.parentElement.parentElement.style.backgroundColor = color;
+        }
+    </script>
+</body>
+</html>
